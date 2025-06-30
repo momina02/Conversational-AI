@@ -1,91 +1,156 @@
-# 🎙️ AI Text-to-Speech Assistant with Edge-TTS
+# 🧠 Urdu Conversational AI Bot 🎙️🤖
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
 ![Text-to-Speech](https://img.shields.io/badge/TTS-Edge--TTS-orange)
+![FastAPI](https://img.shields.io/badge/FastAPI-🚀-green.svg)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen.svg)
+![Speech-to-Text](https://img.shields.io/badge/STT-Whisper-blueviolet)
+![Speech-Detection](https://img.shields.io/badge/Voice-VAD--webrtc-yellowgreen)
+![LLM](https://img.shields.io/badge/LLM-Groq%20%2F%20LLaMA4-red)
 
-Convert any text into realistic human speech using Microsoft's **Edge TTS** voice synthesis, and instantly play it using Python.
 
----
-
-## ✨ Features
-
-- 🔊 Convert text to high-quality MP3 speech
-- 🧠 Uses Microsoft Neural voices (e.g. `en-US-JennyNeural`)
-- 🎧 Plays audio instantly using `playsound`
-- 💡 Simple and async-friendly architecture
-- 📦 Lightweight with minimal dependencies
+Welcome to the **Urdu Conversational AI Bot** — an intelligent voice assistant that listens to your voice, understands Urdu speech, responds using advanced AI, and replies back in audio — all in **pure Urdu language** 🇵🇰🗣️🔊
 
 ---
 
-## 📦 Installation
+## 🚀 Features
 
-```bash
-git clone https://github.com/your-username/ai-text-to-speech.git
-cd ai-text-to-speech
-pip install -r requirements.txt
-````
-
-Or install individually:
-
-```bash
-pip install edge-tts playsound
-```
-
----
-
-## 🚀 Usage
-
-```bash
-python text_to_speech.py
-```
-
-This will:
-
-1. Convert your sample text into `output.mp3`
-2. Play the MP3 using your default audio output
-
----
-
-## 🗣️ Available Voices
-
-You can choose from dozens of voices and languages provided by Microsoft. Example voice IDs:
-
-* `en-US-JennyNeural` (Female)
-* `en-US-GuyNeural` (Male)
-* `ur-PK-AsadNeural` (Male, Urdu)
-* `hi-IN-SwaraNeural` (Female, Hindi)
-
-Full list: [https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support#neural-voices](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support#neural-voices)
+- 🎤 **Voice Activated**: Starts listening automatically and stops when you're done.
+- 🧠 **LLM Powered**: Uses [Groq API](https://groq.com/) with **Meta-LLaMA 4** model.
+- 🗣️ **Speech to Text**: Transcribes Urdu speech using [OpenAI Whisper](https://github.com/openai/whisper).
+- 🗨️ **AI Chat**: Intelligent Urdu-only conversation based on your input.
+- 🔈 **Text to Speech**: Replies using Urdu neural voice (`ur-PK-AsadNeural`) with [Edge TTS](https://github.com/rany2/edge-tts).
+- 🧏 **Polite Behavior**: Ends conversation on words like _"خدا حافظ"_ or _"الوداع"_.
+- 🛠️ **API Ready**: Easily extendable with [FastAPI](https://fastapi.tiangolo.com/).
 
 ---
 
 ## 📂 Project Structure
 
 ```
-📁 ai-text-to-speech/
-├── text_to_speech.py
-├── output.mp3
-└── README.md
+
+📦 UrduBot
+├── bot\_logic.py        # Core bot logic: record, transcribe, respond, TTS, playback
+├── main.py             # FastAPI server with `/start-call` endpoint
+├── .env                # Environment variables (API keys)
+└── requirements.txt    # Required Python libraries
+
+````
+
+---
+
+## 🧪 Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/urdu-conversational-bot.git
+cd urdu-conversational-bot
+````
+
+### 2. Create Virtual Environment (Optional but Recommended)
+
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-## 📝 License
+### 3. Install Dependencies
 
-This project is licensed under the MIT License. See [`LICENSE`](LICENSE) for more details.
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Add Environment Variables
+
+Create a `.env` file in the root directory and add your API key:
+
+```
+GROQ_API_KEY=your_groq_api_key
+```
 
 ---
 
-## 🙌 Credits
+## ▶️ Run the Bot
 
-* [Microsoft Edge TTS](https://github.com/rany2/edge-tts)
-* [playsound](https://github.com/TaylorSMarks/playsound)
+### 1. Start the API
+
+```bash
+uvicorn main:app --reload
+```
+
+### 2. Visit the Endpoint
+
+Navigate to:
+
+```
+http://127.0.0.1:8000/start-call
+```
+
+Your bot will begin recording your Urdu speech and start a conversation 🧠🔁🎧
 
 ---
 
-## 🧠 Future Ideas
+## 💻 Example Workflow
 
-* GUI with Tkinter or PyQt
-* Integrate with ChatGPT for dynamic conversation
-* Support for multiple languages and input files
+1. You say: *"مجھے اردو گرامر کے بارے میں بتائیں"*
+2. ✅ Bot transcribes it.
+3. 🤖 Bot generates a detailed Urdu explanation.
+4. 🔊 Bot speaks the answer in a natural Urdu voice.
 
+---
+
+## 🧰 Tech Stack
+
+| Component        | Technology             |
+| ---------------- | ---------------------- |
+| Speech Detection | `webrtcvad`, `pyaudio` |
+| Transcription    | `openai-whisper`       |
+| AI Response      | `Groq` with LLaMA 4    |
+| TTS              | `edge-tts`             |
+| Playback         | `pydub`                |
+| API              | `FastAPI`              |
+
+---
+
+## 📌 Exit Condition
+
+Say one of the following to end the conversation gracefully:
+
+* *"خدا حافظ"*
+* *"الوداع"*
+
+---
+
+## ❗ Troubleshooting
+
+* Make sure your microphone is connected and not muted.
+* Use clear Urdu speech for better accuracy.
+* If you see errors like `TTS Error`, check internet or Edge TTS compatibility.
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome! For major changes, open an issue first to discuss what you would like to change.
+
+---
+
+## 🙏 Acknowledgements
+
+* [OpenAI Whisper](https://github.com/openai/whisper)
+* [Groq](https://groq.com/)
+* [Edge TTS](https://github.com/rany2/edge-tts)
+* [FastAPI](https://fastapi.tiangolo.com/)
+
+---
+
+## 🌟 Star the repo if you like it!
